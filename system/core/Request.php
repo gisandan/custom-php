@@ -12,6 +12,7 @@ class Request {
      * Request Constructor
      */
     public function __construct(){
+        $this->request = $_REQUEST;
         $this->bind();
     }
     
@@ -28,7 +29,6 @@ class Request {
      * Bind Request Parameters
      */
     public function bind() {
-        $this->request = $_REQUEST;
         foreach ($this->params() as $key => $value) {
             $this->$key = $value;
         }
@@ -63,7 +63,7 @@ class Request {
                 $isValidated = Validator::$method($this->$key, $condtion);
 
                 if (!$isValidated) {
-                    $errors[$key][$i] = strtoupper($key) . Validator::$errorMessage[$method];
+                    $errors[$key][$i] = ucfirst($key) . Validator::$errorMessage[$method];
                     $errors[$key][$i] .= (count($ruleData) == 2) ? $ruleData[1] : '';
                     continue;
                 }

@@ -4,7 +4,7 @@ use App\Core\Route;
 
 Route::get('tasks','Test/TestController@test');
 
-Route::get('tasks/{id}','TaskController');
+Route::get('tasks/{id}/{name}','TaskController');
 
 Route::post('tasks','TaskController');
 

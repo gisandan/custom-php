@@ -59,7 +59,7 @@ class Route {
 		$dynamicRoutes = [];
 
 		foreach ($routes as $key => $value) {
-			if (strpos($key, '{')) {
+			if (is_int(strpos($key, '{'))) {
 				$dynamicRoutes[$key] = $value;
 			} else {
 				$staticRoutes[$key] = $value;
@@ -82,18 +82,27 @@ class Route {
 
 			if ($uriLength === $routeLength && $uriData[0] === $routeData[0]) {
 				$method = strtoupper($this->getMethod());
-				for ($i = 0; $i < count($routeData); $i++) {
-					if (!strpos($routeData[$i], '{')) {
-						continue;
-					}
-
-					$_method[$routeData[$i]] = $uriData[$i];
-				}
+				$this->registerParam($routeData, $uriData);
 				return $value;
 			}
 		}
 
 		return false;
+	}
+
+	/**
+	 * Register URI as HTTP Parameters
+	 *
+	 * @param array $routeData
+	 * @param array $uriData
+	 */
+	public function registerParam($routeData = [], $uriData = []) {
+		for ($i = 0; $i < count($routeData); $i++) {
+			if (is_int(strpos($routeData[$i], '{'))) {
+				$param = preg_replace('/[^A-Za-z0-9\-]/', '', $routeData[$i]);
+				$_REQUEST[$param] = $uriData[$i];
+			}
+		}
 	}
 
 	/*

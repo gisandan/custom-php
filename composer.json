@@ -1,5 +1,5 @@
 {
-    "name": "daywalker",
+    "name": "gisandan/custom",
     "autoload": {
     	"classmap":  [
 			"system/core/Route.php",

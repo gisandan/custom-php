@@ -36,6 +36,8 @@ class Request {
 
     /**
      * Validate Parameters
+     *
+     * @return array
      */
     public function validate($keys = []) {
         if (empty($keys)) {
@@ -61,8 +63,8 @@ class Request {
                 $isValidated = Validator::$method($this->$key, $condtion);
 
                 if (!$isValidated) {
-                    $errors[$key][$i] = $key . Validator::$errorMessage[$method];
-                    $errors[$key][$i] .= (count($ruleData) == 2) ? $ruleData[1]:'';
+                    $errors[$key][$i] = strtoupper($key) . Validator::$errorMessage[$method];
+                    $errors[$key][$i] .= (count($ruleData) == 2) ? $ruleData[1] : '';
                     continue;
                 }
 

@@ -8,7 +8,7 @@ class TaskController extends CoreController {
         parent:: __construct();
     }
     
-    public function home() {
+    public function index() {
     	echo "Home Controller";
     }
 }

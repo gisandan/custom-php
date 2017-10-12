@@ -48,6 +48,55 @@ class Route {
 	}
 
 	/*
+	 * Check if route exist
+	 *
+	 * @param string $uri
+	 * @return mixed
+	 */
+	public function checkRoute($uri = '') {
+		$routes = Static::$routes[$this->getMethod()];
+		$staticRoutes = [];
+		$dynamicRoutes = [];
+
+		foreach ($routes as $key => $value) {
+			if (strpos($key, '{')) {
+				$dynamicRoutes[$key] = $value;
+			} else {
+				$staticRoutes[$key] = $value;
+			}
+		}
+
+		$staticRoute = array_key_exists($this->getUri(), $staticRoutes);
+
+		if ($staticRoute) {
+			return $staticRoutes[$this->getUri()];
+		}
+
+
+		foreach ($dynamicRoutes as $key => $value) {
+			$uriData = explode('/', $this->getUri());
+			$routeData = explode('/', $key);
+
+			$uriLength = count($uriData);
+			$routeLength = count($routeData);
+
+			if ($uriLength === $routeLength && $uriData[0] === $routeData[0]) {
+				$method = strtoupper($this->getMethod());
+				for ($i = 0; $i < count($routeData); $i++) {
+					if (!strpos($routeData[$i], '{')) {
+						continue;
+					}
+
+					$_method[$routeData[$i]] = $uriData[$i];
+				}
+				return $value;
+			}
+		}
+
+		return false;
+	}
+
+	/*
 	 * Store Get Routes 
 	 */
  	public static function get($route = '', $controller = '') {
@@ -93,8 +142,9 @@ class Route {
  		}
 
  		// Check if route exist
- 		if (array_key_exists($this->getUri(), Static::$routes[$this->getMethod()])) {
- 			$controllerPath = explode('@', Static::$routes[$this->getMethod()][$this->getUri()]);
+ 		$route = $this->checkRoute($this->getUri());
+ 		if ($route) {
+ 			$controllerPath = explode('@', $route);
 
  			require APPLICATION . '/controllers/' . $controllerPath[0] . PHP_EXT; // It should have a controller loader
 

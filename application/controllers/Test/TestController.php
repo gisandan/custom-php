@@ -14,7 +14,8 @@ class TestController extends CoreController{
     	$this->success($request->id);
 
     	$data = $request->validate([
-    		'id'	=>	'numeric|required'
+    		'id'	=>	'numeric|required',
+    		'name'	=>	'required'
     	]);
     }
 }

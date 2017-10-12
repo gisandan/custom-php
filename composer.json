@@ -1,0 +1,16 @@
+{
+    "name": "daywalker",
+    "autoload": {
+    	"classmap":  [
+			"system/core/Route.php",
+			"system/core/Core_Controller.php",
+			"system/core/Request.php"
+		],
+		"psr-4": {
+			"App\\": "system/"
+		}
+	},
+	"config": {
+        "vendor-dir": "application/vendor"
+    }
+}

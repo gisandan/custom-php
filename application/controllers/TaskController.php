@@ -10,8 +10,6 @@ class TaskController extends CoreController {
     }
     
     public function index(Request $request) {
-    	echo '<pre>';
     	$this->success($request->params());
-    	// echo "Home Controller";
     }
 }

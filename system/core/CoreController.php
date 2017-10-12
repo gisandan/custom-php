@@ -4,27 +4,33 @@ namespace App\Core;
 
 use App\Core\Request;
 
-class CoreController {
+abstract class CoreController {
    
     public $request;
 
+    /**
+     * CoreController Constructor
+     */
     public function __construct() {
         $this->request = new Request();
     }
 
-    /*
+    /**
      * Success - return success
      *
      * @param array $data
+     * @param string $message
      */
-    public function success($data = []) {
+    public function success($data = [], $message = '') {
         $return = [
-            'data' => $data
+            'data'      => $data,
+            'err_msg'   => ($message) ? $message : 'Success'
         ];
+
         $this->response($data, 200);
     }
     
-    /*
+    /**
      * Response
      *
      * @param array $data

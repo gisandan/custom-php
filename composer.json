@@ -5,7 +5,8 @@
 			"system/core/Route.php",
 			"system/core/CoreController.php",
 			"system/core/Request.php",
-			"system/core/Validator.php"
+			"system/core/Validator.php",
+			"system/core/Loader.php"
 		],
 		"psr-4": {
 			"App\\": "system/"

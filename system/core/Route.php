@@ -2,6 +2,7 @@
 
 namespace App\Core; 
 
+use App\Core\Loader;
 use App\Core\Request;
 
 class Route {
@@ -155,7 +156,7 @@ class Route {
  		if ($route) {
  			$controllerPath = explode('@', $route);
 
- 			require APPLICATION . '/controllers/' . $controllerPath[0] . PHP_EXT; // It should have a controller loader
+ 			Loader::controller($controllerPath[0]);
 
  			$controllerUri = explode('/',$controllerPath[0]);
  			$controller = $controllerUri[count($controllerUri) - 1];
@@ -170,9 +171,7 @@ class Route {
 
  			return $controllerInstance->$method(new Request());
  		} else {
- 			// It Should have a view renderer
- 			http_response_code(404);
- 			require PUBLIC_HTML . '/error/404.php';
+ 			Loader::error(404);
  		}
  	}
 }

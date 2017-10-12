@@ -3,8 +3,9 @@
     "autoload": {
     	"classmap":  [
 			"system/core/Route.php",
-			"system/core/Core_Controller.php",
-			"system/core/Request.php"
+			"system/core/CoreController.php",
+			"system/core/Request.php",
+			"system/core/Validator.php"
 		],
 		"psr-4": {
 			"App\\": "system/"

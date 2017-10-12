@@ -1,8 +1,19 @@
 <?php
 
-namespace App\Core\RequestValidator;
+namespace App\Core;
 
-class RequestValidator {
+class Validator {
+
+	public static $errorMessage = [
+		'required'		=>	' is required.',
+		'numeric'		=>	' must be a number.',
+		'alphanumeric'	=>	' must be alpha numeric.',
+		'max'			=>	' must be at most ',
+		'min'			=>	' must be at least',
+		'int'			=>	' must be integer',
+		'float'			=>	' must have a decimal point',
+		'string'		=>	' must be a string'
+	];
 
 	/*
 	 * Required
@@ -23,6 +34,16 @@ class RequestValidator {
 	public static function alphanumeric($data) {
 		return (ctype_alnum($data)) ? true : false;
 	}	
+
+	/*
+	 * Numeric
+	 *
+	 * @param string $data
+	 * @return bool
+	 */
+	public static function numeric($data) {
+		return (is_numeric($data)) ? true : false;
+	}
 
 	/*
 	 * Max
@@ -50,21 +71,29 @@ class RequestValidator {
 	 * String
 	 *
 	 * @param string $data
-	 * @param int $type
 	 * @return bool
 	 */
-	public static function stringType($data) {
-		return ((string)($data) != $data) false : true;
+	public static function string($data) {
+		return (is_string($data)) ? true : false;
 	}
 
 	/*
 	 * Int
 	 *
 	 * @param string $data
-	 * @param int $type
 	 * @return bool
 	 */
-	public static function intType($data) {
-		return ((string)($data) != $data) false : true;
+	public static function int($data) {
+		return (is_integer($data)) ?true : false;
+	}
+
+	/*
+	 * Float
+	 *
+	 * @param string $data
+	 * @return bool
+	 */
+	public static function float($data) {
+		return (is_float($data)) ? true : false;
 	}
 }

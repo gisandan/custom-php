@@ -7,9 +7,7 @@ class Loader {
 	/**
 	 * Loader Constructor
 	 */
-	public function __construct() {
-
-	}
+	public function __construct() {}
 
 	/**
 	 * Controller Loader
